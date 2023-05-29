@@ -38,5 +38,9 @@ So, the reliability is $\frac{50 \times 2^{356}}{2^{375}}$
 - [Mohimenul Kabir](https://mahi045.github.io/)
 - [Kuldeep S Meel](https://www.comp.nus.edu.sg/~meel/)
 
+### Acknowledgements
+- [Anna Latour](https://latower.github.io/)
+- [Roger Paredes](https://paredesroger.github.io/)
+
 ### Issue
 If you face any issue, create a new issue or email to [mahibuet045@gmail.com](mailto:mahibuet045@gmail.com).
