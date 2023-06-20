@@ -12,6 +12,7 @@ One binary of ApproxASP is given in the current directory.
 
 ### Run RelNet-ASP
 **Please check whether add_chain_formula.py, approxasp, molise.pl exist in your current directory, and approxasp is executable (chmod +x)**
+
 The input graph is `molise.pl` (LP format). The command to compute network reliability of `molise.pl` for $p = 0.125$ (edge probability) is as follows:
 ```
 python run-relnet-asp.py -i molise.pl -p 0.125
