@@ -1,19 +1,26 @@
 ### Directory structure
-- `relnet-asp.py`: script to run RelNet-ASP
+- `run-relnet-asp.py`: script to run RelNet-ASP
 - `add_chain_formula.py`: script to compute chain ASP program
 - `molise.pl`: an example graph instance
 
 ### Benchmark
 The Benchmarks are available [here](https://zenodo.org/record/7737616#.ZGMVRtJByV4).
 
-### Counter
+### ASP Counter
 The ApproxASP is publicly available here: [ApproxASP](https://github.com/meelgroup/ApproxASP2).
-One binary is given in the current directory.
+One binary of ApproxASP is given in the current directory.
 
-### Run RelNet-ASP
+### Run RelNet-ASP (Step-by-Step)
+**Please check whether add_chain_formula.py, approxasp, molise.pl exist in your current directory, and approxasp is executable (chmod +x)**
+The input graph is `molise.pl` (LP format). The command to compute network reliability of `molise.pl` for $w = 0.125$ is as follows:
+```
+python run-relnet-asp.py -i molise.pl -p 0.125
+```
+
+### Step-by-Step RelNet-ASP Run
 **Please check whether add_chain_formula.py, approxasp, molise.pl exist in your current directory, and approxasp is executable (chmod +x)**
 
-There is a graph instance `molise.pl` in LP format. First compute the chain formula of `molise.pl` for edge probability `0.125`, by executing the following command:
+First compute the chain formula of `molise.pl` for edge probability `0.125`, by executing the following command:
 ```
 python add_chain_formula.py -i molise.pl -p 0.125
 ```  

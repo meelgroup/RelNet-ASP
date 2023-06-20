@@ -1,17 +1,16 @@
 import argparse
 import os
 import random
-# this script is useful to compute unreliability
-
+accepted_range = [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875]
 parser = argparse.ArgumentParser()
 parser.add_argument('-i','--i', help='input asp file', required=True)
 parser.add_argument('-p', '--p', default=True, required=0.125,
-                    help='edge probability, prob (-p) should be from value')
+                    help='edge probability, prob (-p) should be from values: {0}'.format(accepted_range))
 args = parser.parse_args()
 
 file_name = args.i
 prob = float(args.p)
-accepted_range = [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875]
+
 if prob not in accepted_range:
     print("prob should be from values: {0}".format(accepted_range))
     prob = 0.125
