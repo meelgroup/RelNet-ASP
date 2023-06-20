@@ -10,9 +10,9 @@ The Benchmarks are available [here](https://zenodo.org/record/7737616#.ZGMVRtJBy
 The ApproxASP is publicly available here: [ApproxASP](https://github.com/meelgroup/ApproxASP2).
 One binary of ApproxASP is given in the current directory.
 
-### Run RelNet-ASP (Step-by-Step)
+### Run RelNet-ASP
 **Please check whether add_chain_formula.py, approxasp, molise.pl exist in your current directory, and approxasp is executable (chmod +x)**
-The input graph is `molise.pl` (LP format). The command to compute network reliability of `molise.pl` for $w = 0.125$ is as follows:
+The input graph is `molise.pl` (LP format). The command to compute network reliability of `molise.pl` for $p = 0.125$ (edge probability) is as follows:
 ```
 python run-relnet-asp.py -i molise.pl -p 0.125
 ```
