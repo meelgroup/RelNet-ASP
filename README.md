@@ -52,3 +52,15 @@ So, the reliability is $\frac{50 \times 2^{356}}{2^{375}}$
 
 ### Issue
 If you face any issue, create a new issue or email to [mahibuet045@gmail.com](mailto:mahibuet045@gmail.com).
+
+### How to cite
+```
+@inproceedings{KM2023,
+  title={A Fast and Accurate ASP Counting Based Network Reliability Estimator.},
+  author={Kabir, Mohimenul and Meel, Kuldeep S},
+  booktitle={LPAR},
+  volume={94},
+  pages={270--287},
+  year={2023}
+}
+```
