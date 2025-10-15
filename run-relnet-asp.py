@@ -1,22 +1,35 @@
 import argparse
 import os
 import random
-accepted_range = [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875]
 parser = argparse.ArgumentParser()
 parser.add_argument('-i','--i', help='input asp file', required=True)
-parser.add_argument('-p', '--p', default=True, required=0.125,
-                    help='edge probability, prob (-p) should be from values: {0}'.format(accepted_range))
+parser.add_argument('-k', '--k', default=1, required=True,
+                    help='the value of k (must be odd)')
+parser.add_argument('-m', '--m', default=3, required=True,
+                    help='the value of m')
 args = parser.parse_args()
 
 file_name = args.i
-prob = float(args.p)
 
-if prob not in accepted_range:
-    print("prob should be from values: {0}".format(accepted_range))
-    prob = 0.125
-    print("Using prob value = 0.125")
+frac_k = int(args.k)
+frac_m = int(args.m)
 
-os.system('python add_chain_formula.py -i {0} -p 0.125 > result_{0}'.format(file_name))
+if frac_k == 0 or frac_k % 2 == 0:
+    print("The k value must be odd, otherwise, the fraction k / 2^m can be reduced.")
+    print("Exit")
+    exit(0)
+
+if frac_m == 0:
+    print("The m value must be greater than 0")
+    print("Exit")
+    exit(0)
+
+if frac_k > 2 ** frac_m:
+    print("The condition k <= 2^m must hold")
+    print("Exit")
+    exit(0)
+
+os.system('python add_chain_formula.py -i {0} -k {1} -m {2} > result_{0}'.format(file_name, frac_k, frac_m))
 os.system('./approxasp --sparse --conf 0.35 --useind IS_chain_{0} --asp chain_{0} >> result_{0}'.format(file_name))
 
 print("### Countering finished, parsing output ###")

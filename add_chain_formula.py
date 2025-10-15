@@ -16,6 +16,17 @@ frac_m = int(args.m)
 
 if frac_k == 0 or frac_k % 2 == 0:
     print("The k value must be odd, otherwise, the fraction k / 2^m can be reduced.")
+    print("Exit")
+    exit(0)
+
+if frac_m == 0:
+    print("The m value must be greater than 0")
+    print("Exit")
+    exit(0)
+
+if frac_k > 2 ** frac_m:
+    print("The condition k <= 2^m must hold")
+    print("Exit")
     exit(0)
 # if prob not in accepted_range:
 #     print("prob should be from values: {0}".format(accepted_range))
