@@ -89,7 +89,7 @@ for index, edge in enumerate(edge_list):
     probabilistic_file_writer.write(rule_string)
     number_of_new_rules += 1
 
-    IS_string += " ".join("in({0}, {1}, {2})".format(edge[0], edge[1], _) for _ in range(0, frac_m)) + " "
+    IS_string += " ".join("in({0},{1},{2})".format(edge[0], edge[1], _) for _ in range(0, frac_m)) + " "
 
 
     temp_k = frac_k // 2  # first bit is considered already
