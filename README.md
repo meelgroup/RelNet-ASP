@@ -1,46 +1,37 @@
-### Directory structure
-- `run-relnet-asp.py`: script to run RelNet-ASP
-- `add_chain_formula.py`: script to compute chain ASP program
-- `molise.pl`: an example graph instance
+### RelNet-ASP 
+RelNet-ASP is an ASP Counting based network reliability estimator. The related publication is [here](https://easychair.org/publications/paper/8zhh).
 
-### Benchmark
-The Benchmarks are available [here](https://zenodo.org/record/7737616#.ZGMVRtJByV4).
+### Clone the repo
+```
+git clone --recurse-submodules git@github.com:meelgroup/RelNet-ASP.git
+```
 
-### ASP Counter
-The ApproxASP is publicly available here: [ApproxASP](https://github.com/meelgroup/ApproxASP2).
-One binary of ApproxASP is given in the current directory.
+### Dependencies
+You need to install cmake, g++, re2c, and bison.
+```
+sudo apt-get install bison
+sudo apt-get install re2c
+sudo apt install build-essential cmake
+```
+
+
+### ASP Counter: ApproxASP
+We used [ApproxASP](https://github.com/meelgroup/ApproxASP) as the ASP counter. It is added as a submodule. 
+
+## Compile ApproxASP
+First you need to compile ApproxASP. cd to ApproxASP and see the readme in `ApproxASP` directory to compile ApproxASP. After sucessful compilation mv approxasp binary to `scripts` directory.
 
 ### Run RelNet-ASP
-**Please check whether add_chain_formula.py, approxasp, molise.pl exist in your current directory, and approxasp is executable (chmod +x)**
 
-The input graph is `molise.pl` (LP format). The command to compute network reliability of `molise.pl` for $p = 0.125 = \frac{1}{2^3}$ (edge probability) is as follows:
+To run `RelNet-ASP`, cd to scripts directory. The directory has necessary scripts to run RelNet-ASP.
+
+The input graph is `molise.pl` (LP format). The command to compute network reliability of `molise.pl` for $p = 0.125 = \frac{1}{2^3}$, (edge probability), that is $k=1, m=3$ is as follows:
 ```
 python run-relnet-asp.py -i molise.pl -k 1 -m 3
 ```
 
-### Step-by-Step RelNet-ASP Run
-**Please check whether add_chain_formula.py, approxasp, molise.pl exist in your current directory, and approxasp is executable (chmod +x)**
-
-First compute the chain formula of `molise.pl` for edge probability $0.125$ = $\frac{1}{2^3}$, by executing the following command:
-```
-python add_chain_formula.py -i molise.pl -k 1 -m 3
-```  
-After successful execution, the command will show the following output:
-```
-Number of new rules added: 250
-The multiplication factor: 375
-```
-We need to value of **The multiplication factor:** to compute the network reliability. More specifically, we divide the ASP count by $2^{375}$. 
-The script `add_chain_formula.py` will generate two files to run ASP counter: chain formula augmented ASP program ($\mathcal{Q}$) in  `chain_molise.pl` and independent support  `IS_chain_molise.pl`. Independent support is useful for counting efficiently.
-
-Now let run an ASP counter using the following command:
-```
-./approxasp --sparse --conf 0.35 --useind IS_chain_molise.pl --asp chain_molise.pl
-```
-The command will take few seconds to run and finally it shows the approximate count 
-in line: **After the iteration, the (median) number of solution: 50 * 2 ^ 356**
-
-So, the reliability is $\frac{50 \times 2^{356}}{2^{375}}$
+### Benchmark 
+The artifact and benchmark of RelNet-ASP is available [here](https://zenodo.org/records/19453575).
 
 ### Contributor
 - [Mohimenul Kabir](https://mahi045.github.io/)
