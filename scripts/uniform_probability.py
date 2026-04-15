@@ -1,36 +1,39 @@
 import argparse
 import os
 import random
+accepted_range = [0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875]
 parser = argparse.ArgumentParser()
 parser.add_argument('-i','--i', help='input asp file', required=True)
+parser.add_argument('-k', '--k', default=1, required=True,
+                    help='the value of k (must be odd)')
+parser.add_argument('-m', '--m', default=3, required=True,
+                    help='the value of m')
 args = parser.parse_args()
 
 file_name = args.i
-frac_k = None
-frac_m = None
+frac_k = int(args.k)
+frac_m = int(args.m)
 
-def check(frac_k, frac_m, edge):
-    if frac_k == 0 or frac_k % 2 == 0:
-        print(f"{edge} The k value must be odd, otherwise, the fraction k / 2^m can be reduced.")
-        print("Exit")
-        exit(0)
+if frac_k == 0 or frac_k % 2 == 0:
+    print("The k value must be odd, otherwise, the fraction k / 2^m can be reduced.")
+    print("Exit")
+    exit(0)
 
-    if frac_m == 0:
-        print(f"{edge} The m value must be greater than 0")
-        print("Exit")
-        exit(0)
+if frac_m == 0:
+    print("The m value must be greater than 0")
+    print("Exit")
+    exit(0)
 
-    if frac_k > 2 ** frac_m:
-        print(f"{edge} The condition k <= 2^m must hold")
-        print("Exit")
-        exit(0)
+if frac_k > 2 ** frac_m:
+    print("The condition k <= 2^m must hold")
+    print("Exit")
+    exit(0)
 # if prob not in accepted_range:
 #     print("prob should be from values: {0}".format(accepted_range))
 #     prob = 0.125
 #     print("Using prob value = 0.125")
 
 edge_list = []
-prob_list = []
 line_list = []
 src = None
 des = None
@@ -38,21 +41,6 @@ max_node = 0
 file_pointer = open(file_name, 'r')
 prob_graph = "chain_" + file_name
 probabilistic_file_writer = open(prob_graph, 'w')
-probabilistic_file_writer.write(
-'''
-node(X) :- edge(X,Y).
-node(Y) :- edge(X,Y).
-
-reached(X) :- first(X).
-reached(Y) :- edge(X,Y), in(X,Y), reached(X).
-reached(Y) :- edge(Y,X), in(Y,X), reached(X).
-
-% in reliability, the last node will be reached
-:- last(X), not reached(X).
-
-#show in/3.
-'''
-)
 for line in file_pointer:
     if line.startswith("edge(") or line.startswith("line("):
         edges = line[line.find("(") + 1: line.find(")")]
@@ -62,39 +50,20 @@ for line in file_pointer:
         if line.startswith("edge("):
             # for edges
             edge_list.append((int(edge_tuple[0]), int(edge_tuple[1])))
-            l = line.rstrip().split(" ")
-            if len(l) != 3:
-                print(f"bad format: {line}")
-                print("please write as: edge(X,Y) k m")
-                exit(0)
-            frac_k = int(l[-2])
-            frac_m = int(l[-1])
-            check(frac_k, frac_m, line)
-            prob_list.append((frac_k, frac_m))
-
-
         elif line.startswith("line("):
             # for lines
             line_list.append((int(edge_tuple[0]), int(edge_tuple[1])))
 
-    elif line.startswith("first"):
-        l = line.strip().split(" ")
-        if len(l) != 2:
-            print(f"bad format: {line}")
-            print("please write as: first X")
-            exit(0)
-        src = int(l[-1])
+    elif line.startswith("first("):
+        node = line[line.find("(") + 1: line.find(")")]
+        src = int(node)
 
-    elif line.startswith("last"):
-        l = line.strip().split(" ")
-        if len(l) != 2:
-            print(f"bad format: {line}")
-            print("please write as: first X")
-            exit(0)
-        des = int(l[-1])
+    elif line.startswith("last("):
+        node = line[line.find("(") + 1: line.find(")")]
+        des = int(node)
 
-    # else:
-    #     probabilistic_file_writer.write(line)
+    else:
+        probabilistic_file_writer.write(line)
 
 
 # print("Max variable before probabilistic encoding: {0}".format(max_node))
@@ -103,8 +72,7 @@ num_nodes = max_node
 number_of_new_rules = 0
 multiplication_factor = 0
 
-# sanity check
-assert(len(edge_list) == len(prob_list)) # otherwise some probs are missing
+
 independent_support = "IS_" + prob_graph
 # abstract_graph = "abst_graph_" + file_name
 # abstract_file_writer = open(abstract_graph, 'w')
@@ -122,9 +90,7 @@ for index, edge in enumerate(edge_list):
     number_of_new_rules += 1
 
     IS_string += " ".join("in({0},{1},{2})".format(edge[0], edge[1], _) for _ in range(0, frac_m)) + " "
-    
-    frac_k = prob_list[index][0] # k is 0th index
-    frac_m = prob_list[index][1] # m is 1th index 
+
 
     temp_k = frac_k // 2  # first bit is considered already
     last_bit = None

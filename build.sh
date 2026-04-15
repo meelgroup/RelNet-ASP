@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(pwd)"
+
+echo "Building ApproxASP..."
+cd "$ROOT_DIR/ApproxASP"
+mkdir -p build && cd build
+cmake -DCLINGO_BUILD_SHARED=ON ..
+make -j12
+cp approxasp "$ROOT_DIR/scripts"
+
+echo "Done. Copied binaries to:"
+echo "  $ROOT_DIR/scripts/approxasp"

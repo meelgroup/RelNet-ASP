@@ -19,15 +19,35 @@ sudo apt install build-essential cmake
 We used [ApproxASP](https://github.com/meelgroup/ApproxASP) as the ASP counter. It is added as a submodule. 
 
 ## Compile ApproxASP
-First you need to compile ApproxASP. cd to ApproxASP and see the readme in `ApproxASP` directory to compile ApproxASP. After sucessful compilation mv approxasp binary to `scripts` directory.
-
-### Run RelNet-ASP
-
-To run `RelNet-ASP`, cd to scripts directory. The directory has necessary scripts to run RelNet-ASP.
-
-The input graph is `molise.pl` (LP format). The command to compute network reliability of `molise.pl` for $p = 0.125 = \frac{1}{2^3}$, (edge probability), that is $k=1, m=3$ is as follows:
+Run `build.sh` to compile approxasp:
 ```
-python run-relnet-asp.py -i molise.pl -k 1 -m 3
+chmod +x build.sh
+./build.sh
+```
+You will see approxasp is copied to scripts directory.
+
+## Run RelNet-ASP
+
+First `cd scripts` directory.
+
+The input graph format is a list of edges with probabilities plus source and destination nodes. For example in `graph_molise.pl` file, the line
+```
+edge(1,2) 1 3
+```
+means that there is an edge between nodes 1 and 2 with probability $\frac{1}{2^3}$ (here $k=1, m=3$).
+```
+first 1 
+last 100
+```
+means that source is node 1 and destination is node 100.
+
+Now run RelNet-ASP on `graph_molise.pl` as follows:
+```
+python run-relnet-asp.py -i molise.pl
+```
+it should output the reliability as follows:
+```
+The network reliability: a X 2^b / 2^c
 ```
 
 ### Benchmark 
