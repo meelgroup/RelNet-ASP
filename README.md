@@ -43,7 +43,7 @@ means that source is node 1 and destination is node 100.
 
 Now run RelNet-ASP on `graph_molise.pl` as follows:
 ```
-python run-relnet-asp.py -i molise.pl
+python run-relnet-asp.py -i graph_molise.pl
 ```
 it should output the reliability as follows:
 ```
