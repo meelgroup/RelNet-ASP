@@ -31,7 +31,11 @@ for line in open("result_{0}".format(input_file)):
         n = int(l[-1])
 
 
-print("The number of answer sets: {0} X 2^{1}".format(m,n))
-print("The network reliability: {0} X 2^{1} / 2^{2}".format(m,n,mul))
+if m != None and n != None and mul != None:
+    print("The number of answer sets: {0} X 2^{1}".format(m,n))
+    print("The network reliability: {0} X 2^{1} / 2^{2}".format(m,n,mul))
+else:
+    print("Error")
+    print("Detailed output in file: result_{0}".format(input_file))
 os.system("rm -f {0} IS_chain_{0} chain_{0}".format(input_file))
 
