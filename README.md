@@ -51,7 +51,7 @@ The network reliability: a X 2^b / 2^c
 ```
 
 ### Benchmark 
-The artifact and benchmark of RelNet-ASP is available [here](https://zenodo.org/records/19453575).
+The artifact and benchmark of RelNet-ASP is available [here](https://zenodo.org/records/19609416).
 
 ### Contributor
 - [Mohimenul Kabir](https://mahi045.github.io/)
