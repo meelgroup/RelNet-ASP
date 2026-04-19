@@ -3,7 +3,7 @@ RelNet-ASP is an ASP Counting based network reliability estimator. The related p
 
 ### Clone the repo
 ```
-git clone --recurse-submodules git@github.com:meelgroup/RelNet-ASP.git
+git clone --recurse-submodules https://github.com/meelgroup/RelNet-ASP.git
 ```
 
 ### Dependencies
@@ -43,7 +43,7 @@ means that source is node 1 and destination is node 100.
 
 Now run RelNet-ASP on `graph_molise.pl` as follows:
 ```
-python run-relnet-asp.py -i graph_molise.pl
+python3 run-relnet-asp.py -i graph_molise.pl
 ```
 it should output the reliability as follows:
 ```
@@ -51,7 +51,7 @@ The network reliability: a X 2^b / 2^c
 ```
 
 ### Benchmark 
-The artifact and benchmark of RelNet-ASP is available [here](https://zenodo.org/records/19642717).
+The artifact and benchmark of RelNet-ASP is available [here](https://zenodo.org/records/19652456).
 
 ### Contributor
 - [Mohimenul Kabir](https://mahi045.github.io/)
