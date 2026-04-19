@@ -25,7 +25,7 @@ for line in open("result_{0}".format(input_file)):
         mul = int(line.split()[-1])
         print("The multiplication factor: 2^{0}".format(mul))
 
-    elif line.startswith("After the iteration, the (median) number of solution:"):
+    elif line.startswith("After the iteration, the (median) number of solution:") or line.startswith("The exact number of solution:"):
         l = line.split()
         m = int(l[-5])
         n = int(l[-1])
