@@ -27,6 +27,5 @@ jobs:
           
       - name: Sample Run
         run: |
-          cd scripts
-          python run-relnet-asp.py -i graph_molise.pl 2>&1 | tee /tmp/out.txt
+          python scripts/run-relnet-asp.py -i graph_molise.pl 2>&1 | tee /tmp/out.txt
           grep -q "The network reliability:" /tmp/out.txt

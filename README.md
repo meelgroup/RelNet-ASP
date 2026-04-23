@@ -28,9 +28,8 @@ You will see approxasp is copied to scripts directory.
 
 ## Run RelNet-ASP
 
-First `cd scripts` directory.
 
-The input graph format is a list of edges with probabilities plus source and destination nodes. For example in `graph_molise.pl` file, the line
+**Input graph:** The input graph format is a list of edges with probabilities plus source and destination nodes. For example in `graph_molise.pl` file, the line
 ```
 edge(1,2) 1 3
 ```
@@ -43,7 +42,7 @@ means that source is node 1 and destination is node 100.
 
 Now run RelNet-ASP on `graph_molise.pl` as follows:
 ```
-python3 run-relnet-asp.py -i graph_molise.pl
+python3 scripts/run-relnet-asp.py -i graph_molise.pl
 ```
 it should output the reliability as follows:
 ```
